@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator two</title>
+    <style>
+        :root {
+            --bck-clr: linear-gradient(45deg, #0a0a0a, #353e4a);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+            letter-spacing: 1px;
+        }
+
+        body {
+            min-height: 100vh;
+            background: var(--bck-clr);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+        }
+
+        .calculator {
+            display: flex;
+            flex-direction: column;
+            padding: 15px;
+            box-shadow: 0 0 15px #000;
+            border: 2px solid rgb(116, 114, 114);
+            border-radius: 15px;
+            width: 100%;
+            max-width: 400px;
+            background-color: #222;
+        }
+
+        .screen input {
+            width: 100%;
+            border: none;
+            padding: 20px;
+            margin: 10px 0;
+            background: transparent;
+            color: #fff;
+            font-size: 2rem;
+            text-align: right;
+            cursor: pointer;
+            outline: -2px solid #313131;
+            outline-offset: -3px;
+            box-shadow: -5px -6px 15px #000;
+            resize: none;
+        }
+
+        input::placeholder {
+            color: #ffffff;
+        }
+
+        button {
+            width: 25%;
+            height: 70px;
+            margin: 10px 0;
+            background: transparent;
+            color: #ffffff;
+            font-size: 22px;
+            font-weight: 600;
+            border: 0;
+            box-shadow: -5px -6px 15px #000;
+            outline: 1px solid #313131;
+            outline-offset: -3px;
+            cursor: pointer;
+        }
+
+        button:active {
+            background: #222020;
+            transform: translate(2px, 2px);
+        }
+
+        .operator {
+            color: orangered;
+            background: #1e1919;
+            font-weight: 700;
+        }
+
+        .eql_btn {
+            background: orangered;
+        }
+
+        .line {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        @media (max-width: 600px) {
+            .screen input {
+                font-size: 1.5rem;
+                padding: 15px;
+            }
+
+            button {
+                font-size: 18px;
+                height: 60px;
+                width: 22%;
+            }
+
+            .calculator {
+                max-width: 100%;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .screen input {
+                font-size: 1.2rem;
+                padding: 12px;
+            }
+
+            button {
+                font-size: 16px;
+                height: 50px;
+                width: 23%;
+            }
+
+            .calculator {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <div class="screen">
+           <input type="text" id="input_box" value="0" placeholder="0" disabled> 
+        </div>
+        <div class="line line1">
+            <button type="text" class="operator">AC</button>
+            <button type="text" class="operator">DEL</button>
+            <!-- <button type="text" class="operator">%</button> -->
+            <button type="text" class="operator">/</button>
+        </div>
+
+        <div class="line line2">
+            <button type="text">7</button>
+            <button type="text">8</button>
+            <button type="text">9</button>
+            <button type="text" class="operator">*</button>
+        </div>
+
+        <div class="line line3">
+            <button type="text">4</button>
+            <button type="text">5</button>
+            <button type="text">6</button>
+            <button type="text" class="operator">+</button>
+        </div>
+
+        <div class="line line4">
+            <button type="text">1</button>
+            <button type="text">2</button>
+            <button type="text">3</button>
+            <button type="text" class="operator">-</button>
+        </div>
+        <div class="line line5">
+            <!-- <button type="text" id="pluse&minus">&#xb1;</button> -->
+            <button type="text">0</button>
+            <button type="text">.</button>
+            <button type="text" id="eql_btn">=</button>
+        </div>
+    </div>
+    <script>
+       let inputBox = document.getElementById('input_box');
+       let buttons = document.querySelectorAll('button');
+       let string = ' ';
+
+       buttons.forEach(element => {
+           element.addEventListener('click', (b) => {
+               if (b.target.innerText == '=') {
+                   string = String(eval(string));
+                   inputBox.value = string;
+               } else if (b.target.innerText == 'AC') {
+                   string = ' ';
+                   inputBox.value = string;
+               } else if (b.target.innerText == 'DEL') {
+                   string = string.substring(0, string.length - 1);
+                   inputBox.value = string;
+               } else if (b.target.innerText == 'plusMinus') {
+                   string = String(-eval(string));
+                   inputBox.value = string;
+               } else {
+                   string += b.target.innerText;
+                   inputBox.value = string; 
+               }
+           });
+       });
+    </script>
+</body>
+</html>
